@@ -1,6 +1,6 @@
 package com.example.view.route
 
-import androidx.compose.ui.R
+import com.example.a0212_roomdatabase.R
 import com.example.roomdb.uicontroller.DestinasiNavigasi
 
 object DestinasiDetailSiswa : DestinasiNavigasi {
