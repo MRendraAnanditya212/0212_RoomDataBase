@@ -6,8 +6,6 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.roomdb.AplikasiSiswa
-import com.example.viewmodel.DetailViewModel
-import com.example.viewmodel.EditViewModel
 
 object PenyediaViewModel {
     val Factory = viewModelFactory {
@@ -18,15 +16,15 @@ object PenyediaViewModel {
             EntryViewModel(aplikasiSiswa().container.repositoriSiswa)
         }
         initializer {
-            DetailViewModel.DetailViewModel(
+            DetailViewModel(
                 savedStateHandle = createSavedStateHandle(),
-                aplikasiSiswa().container.repositoriSiswa
+                repositoriSiswa = aplikasiSiswa().container.repositoriSiswa
             )
         }
         initializer {
             EditViewModel(
                 savedStateHandle = createSavedStateHandle(),
-                aplikasiSiswa().container.repositoriSiswa
+                repositoriSiswa = aplikasiSiswa().container.repositoriSiswa
             )
         }
     }
