@@ -29,7 +29,7 @@ import com.example.roomdb.viewmodel.DetailSiswa
 import com.example.roomdb.viewmodel.EntryViewModel
 import com.example.roomdb.viewmodel.PenyediaViewModel
 import com.example.roomdb.viewmodel.UIStateSiswa
-import com.example.view.SiswaTopAppBar
+import com.example.roomdb.view.SiswaTopAppBar
 import kotlinx.coroutines.launch
 
 object DestinasiEntry : DestinasiNavigasi {

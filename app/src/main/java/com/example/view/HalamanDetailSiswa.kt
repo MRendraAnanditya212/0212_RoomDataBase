@@ -1,3 +1,5 @@
+package com.example.roomdb.view
+
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -33,16 +35,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.roomdb.R
+import com.example.a0212_roomdatabase.R
 import com.example.roomdb.room.Siswa
-import com.example.roomdb.uicontroller.SiswaTopAppBar
 import com.example.roomdb.view.route.DestinasiDetailSiswa
 import com.example.roomdb.viewmodel.DetailSiswaUiState
 import com.example.roomdb.viewmodel.DetailViewModel
 import com.example.roomdb.viewmodel.PenyediaViewModel
 import com.example.roomdb.viewmodel.toSiswa
-import com.example.view.SiswaTopAppBar
-import com.example.view.route.DestinasiDetailSiswa
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)

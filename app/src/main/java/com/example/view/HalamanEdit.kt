@@ -17,7 +17,7 @@ import com.example.a0212_roomdatabase.R
 import com.example.roomdb.uicontroller.DestinasiNavigasi
 import com.example.roomdb.viewmodel.EditViewModel
 import com.example.roomdb.viewmodel.PenyediaViewModel
-import com.example.view.SiswaTopAppBar
+import com.example.roomdb.view.SiswaTopAppBar
 import kotlinx.coroutines.launch
 
 object DestinasiEditSiswa : DestinasiNavigasi {
