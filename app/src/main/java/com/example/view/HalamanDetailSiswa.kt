@@ -97,5 +97,14 @@ private fun BodyDetailDataSiswa(
         ) {
             Text(stringResource(R.string.delete))
         }
+        if (deleteConfimationRequired) {
+            DeleteConfirmationDialog(
+                onDeleteConfirm = {
+                    deleteConfimationRequired = false
+                    onDelete()
+                },
+                onDeleteCancel = { deleteConfimationRequired = false },
+                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium))
+        }
     }
 }
