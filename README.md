@@ -17,3 +17,6 @@
 
 # Delete Data
 <img width="427" height="915" alt="Screenshot 2026-11-19 170611" src="https://github.com/user-attachments/assets/c359ca9a-b850-47da-a7b0-196c02577fd9" />
+
+# Hasil Delete Data
+<img width="413" height="890" alt="image" src="https://github.com/user-attachments/assets/d83d9512-4417-41bf-989a-88aa6d578467" />
