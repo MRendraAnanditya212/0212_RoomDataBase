@@ -41,6 +41,8 @@ import com.example.roomdb.viewmodel.DetailSiswaUiState
 import com.example.roomdb.viewmodel.DetailViewModel
 import com.example.roomdb.viewmodel.PenyediaViewModel
 import com.example.roomdb.viewmodel.toSiswa
+import com.example.view.SiswaTopAppBar
+import com.example.view.route.DestinasiDetailSiswa
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
