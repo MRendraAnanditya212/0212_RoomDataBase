@@ -1,28 +1,44 @@
-package com.example.roomdb.view
-
+import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.room.Delete
 import com.example.roomdb.R
+import com.example.roomdb.room.Siswa
+import com.example.roomdb.uicontroller.SiswaTopAppBar
 import com.example.roomdb.view.route.DestinasiDetailSiswa
 import com.example.roomdb.viewmodel.DetailSiswaUiState
 import com.example.roomdb.viewmodel.DetailViewModel
-import com.example.roomdb.viewmodel.EditViewModel
 import com.example.roomdb.viewmodel.PenyediaViewModel
 import com.example.roomdb.viewmodel.toSiswa
 import kotlinx.coroutines.launch
@@ -30,7 +46,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailSiswaScreen(
-    navigateToEditItem: (Int) -> unit,
+    navigateToEditItem: (Int) -> Unit,
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: DetailViewModel = viewModel(factory = PenyediaViewModel.Factory)
@@ -44,7 +60,7 @@ fun DetailSiswaScreen(
             )
         },
         floatingActionButton = {
-            val uiState = viewModel.uiDetailState.collectedAsState()
+            val uiState = viewModel.uiDetailState.collectAsState()
             FloatingActionButton(
                 onClick = {
                     navigateToEditItem(uiState.value.detailSiswa.id)
@@ -76,7 +92,7 @@ fun DetailSiswaScreen(
 
 @Composable
 private fun BodyDetailDataSiswa(
-    detailSiswauiState: DetailSiswaUiState,
+    detailSiswaUiState: DetailSiswaUiState,
     onDelete: () -> Unit,
     modifier : Modifier = Modifier
 ) {
@@ -86,7 +102,7 @@ private fun BodyDetailDataSiswa(
         var deleteConfimationRequired by rememberSaveable { mutableStateOf(false) }
 
         DetailDataSiswa(
-            siswa = detailSiswauiState.detailSiswa.toSiswa(),
+            siswa = detailSiswaUiState.detailSiswa.toSiswa(),
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -99,12 +115,90 @@ private fun BodyDetailDataSiswa(
         }
         if (deleteConfimationRequired) {
             DeleteConfirmationDialog(
-                onDeleteConfirm = {
+                onDeletConfirm = {
                     deleteConfimationRequired = false
                     onDelete()
                 },
                 onDeleteCancel = { deleteConfimationRequired = false },
-                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium))
+                modifier = Modifier.padding( dimensionResource(id = R.dimen.padding_medium))
+            )
         }
     }
+}
+
+@Composable
+fun DetailDataSiswa(
+    siswa: Siswa, modifier: Modifier = Modifier
+) {
+    Card(
+        modifier = modifier, colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+        )
+    ) {
+        BarisDetailData(
+            labelResID = R.string.nama1,
+            itemDetail = siswa.nama,
+            modifier = Modifier.padding(
+                horizontal = dimensionResource(
+                    id = R.dimen.padding_medium
+                )
+            )
+        )
+
+        BarisDetailData(
+            labelResID = R.string.alamat1,
+            itemDetail = siswa.alamat,
+            modifier = Modifier.padding(
+                horizontal = dimensionResource(
+                    id = R.dimen.padding_medium
+                )
+            )
+        )
+
+        BarisDetailData(
+            labelResID = R.string.telpon1,
+            itemDetail = siswa.telpon,
+            modifier = Modifier.padding(
+                horizontal = dimensionResource(
+                    id = R.dimen.padding_medium
+                )
+            )
+        )
+    }
+}
+
+@Composable
+private fun BarisDetailData(
+    @StringRes labelResID: Int, itemDetail: String, modifier: Modifier = Modifier
+) {
+    Row(modifier = modifier) {
+        Text(stringResource(labelResID))
+        Spacer(modifier = Modifier.weight(1f))
+        Text(text = itemDetail, fontWeight = FontWeight.Bold)
+    }
+}
+
+@Composable
+private fun DeleteConfirmationDialog(
+    onDeletConfirm: () -> Unit,
+    onDeleteCancel: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    AlertDialog(
+        onDismissRequest = { /* Do nothing */ },
+        title = { Text(stringResource(R.string.attention)) },
+        text = { Text(stringResource(R.string.tanya)) },
+        modifier = modifier,
+        dismissButton = {
+            TextButton(onClick = onDeleteCancel) {
+                Text(stringResource(R.string.no))
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDeletConfirm) {
+                Text(stringResource(R.string.yes))
+            }
+        }
+    )
 }
