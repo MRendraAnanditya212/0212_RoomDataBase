@@ -1,6 +1,6 @@
 package com.example.roomdb.view.route
 
-import com.example.roomdb.R
+import com.example.a0212_roomdatabase.R
 import com.example.roomdb.uicontroller.DestinasiNavigasi
 
 object DestinasiHome : DestinasiNavigasi{
