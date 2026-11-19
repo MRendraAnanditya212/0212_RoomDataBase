@@ -1,5 +1,6 @@
 package com.example.roomdb.view
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -34,17 +35,18 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.roomdb.R
 import com.example.roomdb.room.Siswa
-import com.example.roomdb.uicontroller.DestinasiNavigasi
 import com.example.roomdb.uicontroller.SiswaTopAppBar
+import com.example.roomdb.view.route.DestinasiHome
 import com.example.roomdb.viewmodel.HomeViewModel
 import com.example.roomdb.viewmodel.PenyediaViewModel
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
+    navigateToItemEntry: () -> Unit,
+
     //edit 5
-    navigateToItemUpdate: () -> Unit,
+    navigateToItemUpdate: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ) {
@@ -75,6 +77,8 @@ fun HomeScreen(
         val uiStateSiswa by viewModel.homeUiState.collectAsState()
         BodyHome(
             itemSiswa = uiStateSiswa.listSiswa,
+
+            //edit 6
             onSiswaClick = navigateToItemUpdate,
             modifier = Modifier
                 .padding(innerPadding)
@@ -87,7 +91,7 @@ fun HomeScreen(
 fun BodyHome(
     itemSiswa: List<Siswa>,
     modifier: Modifier = Modifier,
-    onSiswaClick: () -> Unit
+    onSiswaClick: (Int) -> Unit
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -102,6 +106,9 @@ fun BodyHome(
         } else {
             ListSiswa(
                 itemSiswa = itemSiswa,
+
+                // edit 4
+                onSiswaClick = { onSiswaClick(it.id)},
                 modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_small))
             )
         }
@@ -112,14 +119,18 @@ fun BodyHome(
 fun ListSiswa(
     itemSiswa: List<Siswa>,
 
-    onSiswa
+    // edit 1 : tambahkan paramter onSiswaClick
+    onSiswaClick: (Siswa) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(modifier = modifier) {
         items(items = itemSiswa, key = { it.id }) { person ->
             DataSiswa(
                 siswa = person,
-                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small))
+                modifier = Modifier
+                    .padding(dimensionResource(id = R.dimen.padding_small))
+                    // edit 2 : tambahkan modifikasi clickable
+                    .clickable { onSiswaClick(person)}
             )
         }
     }
